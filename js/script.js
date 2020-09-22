@@ -1,3 +1,4 @@
+const BUSH_TIME = 1500;
 const activeToolEl = document.getElementById('active-tool');
 const brushColorBtn = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
@@ -16,6 +17,7 @@ const { body } = document;
 const canvas = document.createElement('canvas');
 canvas.id = 'canvas'
 const context = canvas.getContext('2d');
+
 
 let currentSize = 10;
 let bucketColor = '#FFFFFF';
@@ -73,6 +75,10 @@ function switchToBrush() {
   displayBrushSize();
 }
 
+function brushTimeSetTimeout(time) {
+  setTimeout(switchToBrush, time);
+}
+
 // Create Canvas
 function createCanvas() {
   canvas.width = window.innerWidth;
@@ -90,7 +96,7 @@ clearCanvasBtn.addEventListener('click', () => {
   drawnArray = [];
   // Active Tool
   activeToolEl.textContent = 'Canvas Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BUSH_TIME);
 });
 
 // Draw what is stored in DrawnArray
@@ -170,7 +176,7 @@ saveStorageBtn.addEventListener('click', () => {
   localStorage.setItem('savescanvas', JSON.stringify(drawnArray));
   // Active Tool
   activeToolEl.textContent = 'Canvas Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BUSH_TIME);
 });
 
 // Load from Local Storage
@@ -180,10 +186,10 @@ loadStorageBtn.addEventListener('click', () => {
     restoreCanvas();
   // Active Tool
     activeToolEl.textContent = 'Canvas Loaded';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeout(BUSH_TIME);
   } else {
     activeToolEl.textContent = 'No Canvas Found';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeout(BUSH_TIME);
   }
 
 });
@@ -193,7 +199,7 @@ clearStorageBtn.addEventListener('click', () => {
   localStorage.removeItem('savescanvas');
   // Active Tool
   activeToolEl.textContent = 'Local Storage Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BUSH_TIME);
 });
 
 // Download Image
@@ -202,7 +208,7 @@ downloadBtn.addEventListener('click', () => {
   downloadBtn.download = 'paint-example.jpeg';
   // Active Tool
   activeToolEl.textContent = 'Image File Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BUSH_TIME);
 });
 
 // // Event Listener
